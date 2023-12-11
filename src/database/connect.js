@@ -12,7 +12,7 @@ const databaseConnection = async () => {
       await mongoose.connect(config.database, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        dbName: "ParfaitDatabaseDev",
+        dbName: "OfficialParfait",
       });
 
       console.log(
