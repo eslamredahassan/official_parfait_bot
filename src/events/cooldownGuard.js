@@ -79,7 +79,7 @@ module.exports = async (client, config) => {
   };
 
   // Run the function every hour (adjust as needed)
-  setInterval(reapplyCooldowns, 5 * 1000); // 60 minutes
+  setInterval(reapplyCooldowns, 25 * 1000); // 60 minutes
 
   // Other code
 };
