@@ -239,18 +239,93 @@ module.exports = async (client, config) => {
           ],
         },
         {
-          name: "applications",
-          description: `🧪︱ 📋 Find members recruitment applications`,
-          required: true,
+          name: "timestamp",
+          description: "🧪︱ ⏱ Discord timestamp generator",
+          type: "CHAT_INPUT",
           options: [
             {
-              name: "search",
-              description:
-                "Search for recruitment application by username, user id, smash code, or application id",
-              type: 3, // STRING
+              name: "type",
+              description: "Select the timestamp type to generate",
+              type: 3, // INTEGER
               required: true,
-              min_length: 2,
-              max_length: 1000,
+              choices: [
+                {
+                  name: "hh:mm AM/PM (eg: 12:00 AM)",
+                  value: "t",
+                },
+                {
+                  name: "hh:mm:ss AM/PM (eg: 12:00:00 AM)",
+                  value: "T",
+                },
+                {
+                  name: "mm/dd/yyyy (eg: 12/17/2022)",
+                  value: "d",
+                },
+                {
+                  name: "mmm, dd/yyyy (eg: Dec, 17/2022)",
+                  value: "D",
+                },
+                {
+                  name: "mmm, dd/yyyy 00:00AM/PM (eg: Dec, 17/2022)",
+                  value: "f",
+                },
+                {
+                  name: "ddd, mmm dd, yyyy hh:mm:AM/PM (eg: Wed, Dec 17, 2022 12:00 AM)",
+                  value: "F",
+                },
+                {
+                  name: "Active timer",
+                  value: "R",
+                },
+              ],
+            },
+            {
+              name: "year",
+              description: "Type the number of years (eg: 2022)",
+              type: 4, // INTEGER
+              required: false,
+              min_value: 0,
+              max_value: 3024,
+            },
+            {
+              name: "month",
+              description: "Type the number of months (eg: 12)",
+              type: 4, // INTEGER
+              required: false,
+              min_value: 0,
+              max_value: 12,
+            },
+            {
+              name: "day",
+              description: "Type the number of days (eg: 17)",
+              type: 4, // INTEGER
+              required: false,
+              min_value: 0,
+              max_value: 31,
+            },
+            {
+              name: "hour",
+              description: "Type the number of hours in 24h format (eg: 14)",
+              type: 4, // INTEGER
+              required: false,
+              min_value: 0,
+              max_value: 23,
+            },
+            {
+              name: "minute",
+              description: "Type the number of minutes (eg: 30)",
+              type: 4, // INTEGER
+              required: false,
+              min_value: 0,
+              max_value: 59,
+            },
+            {
+              name: "second",
+              description: "Type the number of seconds (eg: 30)",
+              type: 4, // INTEGER
+              required: false,
+              min_value: 0,
+              max_value: 59,
             },
           ],
         },
