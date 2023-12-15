@@ -153,7 +153,7 @@ module.exports = async (client, config) => {
           embeds: [
             {
               title: `${emojis.alert} Permission denied`,
-              description: `${emojis.threadMark} You don't have permission to use </timestamp:1185068499903717457> command.`,
+              description: `${emojis.threadMark} You don't have permission to use </timestamp:1185091492633653309> command.`,
               color: color.gray,
             },
           ],

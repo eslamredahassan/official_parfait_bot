@@ -8,52 +8,47 @@ module.exports = async (client, config) => {
       await guild.commands.set([
         {
           name: "setup",
-          description: `🧪︱ 💼 Launch setup menu to choose between open, close and developer modes`,
-          type: "CHAT_INPUT",
-        },
-        {
-          name: "test",
-          description: `🧪︱ Launch setup menu to choose between open, close and developer modes`,
+          description: `💼 Launch setup menu to choose between open, close and developer modes`,
           type: "CHAT_INPUT",
         },
         {
           name: "squad_sun",
-          description: `🧪︱ A list of Sun members`,
+          description: `☀ A list of Sun members`,
           type: "CHAT_INPUT",
         },
         {
           name: "about",
-          description: `🧪︱ ❓ Learn more about Parfait bot`,
+          description: `❓ Learn more about Parfait bot`,
           type: "CHAT_INPUT",
         },
         {
           name: "feedback",
-          description: `🧪︱ 📬 Send your feedback about Parfait to her developer`,
+          description: `📬 Send your feedback about Parfait to her developer`,
           type: "CHAT_INPUT",
         },
         {
           name: "report_bug",
-          description: `🧪︱ 🐞 Report a bug to the developer`,
+          description: `🐞 Report a bug to the developer`,
           type: "CHAT_INPUT",
         },
         {
           name: "contact_dev",
-          description: `🧪︱ 📤 Send a message to parfait developer`,
+          description: `📤 Send a message to parfait developer`,
           type: "CHAT_INPUT",
         },
         {
           name: "status",
-          description: `🧪︱ 📊 Check Parfait Uptime`,
+          description: `📊 Check Parfait Uptime`,
           type: "CHAT_INPUT",
         },
         {
           name: "ping",
-          description: `🧪︱ 🏓 Check Parfait latency`,
+          description: `🏓 Check Parfait latency`,
           type: "CHAT_INPUT",
         },
         {
           name: "my_cooldown",
-          description: `🧪︱ ⏱ Check your application cooldown duration`,
+          description: `⏱ Check your application cooldown duration`,
           type: "CHAT_INPUT",
         },
         {
@@ -74,11 +69,11 @@ module.exports = async (client, config) => {
         },
         {
           name: "echo",
-          description: `🧪︱ 📢 Parfait will send your message`,
+          description: ` 📢 Parfait will send your message`,
           options: [
             {
               name: "channel",
-              description: " Choose channel you want to send your message in",
+              description: "Choose channel you want to send your message in",
               type: 7, // CHANNEL
               required: true,
             },
@@ -94,7 +89,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "add_cooldown",
-          description: `🧪︱ ⌛ add cooldown a member to stop him from applying to SUN`,
+          description: `⌛ add cooldown a member to stop him from applying to SUN`,
           options: [
             {
               name: "member",
@@ -133,7 +128,7 @@ module.exports = async (client, config) => {
             },
             {
               name: "duration",
-              description: "Set the freeze durations in days",
+              description: "Set the cooldown durations in days",
               type: 4, // MEMBER
               required: true,
               min_length: 1,
@@ -141,7 +136,7 @@ module.exports = async (client, config) => {
             },
             {
               name: "reason",
-              description: "Type your freeze reason",
+              description: "Type your cooldown reason",
               type: 3, // STRING
               required: true,
               min_length: 2,
@@ -151,7 +146,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "change_cooldown",
-          description: `🧪︱ change the cooldown period of member that already has a cooldown`,
+          description: `🛠 change the cooldown period of member that already has a cooldown`,
           options: [
             {
               name: "member",
@@ -190,7 +185,7 @@ module.exports = async (client, config) => {
             },
             {
               name: "duration",
-              description: "Set the freeze durations in days",
+              description: "Set the cooldown durations in days",
               type: 4, // MEMBER
               required: true,
               min_length: 1,
@@ -198,7 +193,7 @@ module.exports = async (client, config) => {
             },
             {
               name: "reason",
-              description: "Type your unfreeze reason",
+              description: "Type your change reason",
               type: 3, // STRING
               required: true,
               min_length: 2,
@@ -208,7 +203,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "check_cooldown",
-          description: `🧪︱ ⌚ Check the cooldown period of member`,
+          description: `⌚ Check the cooldown period of member`,
           options: [
             {
               name: "member",
@@ -220,7 +215,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "remove_cooldown",
-          description: `🧪︱ 🔨 remove the cooldown from the member to allow him to applying to SUN again`,
+          description: `🔨 remove the cooldown from the member to allow him to applying to SUN again`,
           options: [
             {
               name: "member",
@@ -240,7 +235,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "timestamp",
-          description: "🧪︱ ⏱ Discord timestamp generator",
+          description: "⏱ Discord timestamp generator",
           type: "CHAT_INPUT",
           options: [
             {
@@ -331,7 +326,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "add_reminder",
-          description: `🧪︱ 📌 Add a reminder`,
+          description: `📌 Add a reminder`,
           options: [
             {
               name: "text",
@@ -379,7 +374,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "remove_reminder",
-          description: `🧪︱ ❌ Delete reminders by reminder text`,
+          description: `🚮 Delete reminders by reminder text`,
           type: "CHAT_INPUT",
           options: [
             {
@@ -394,7 +389,7 @@ module.exports = async (client, config) => {
         },
         {
           name: "ask",
-          description: `🧪︱ 💭 Ask Parfait questions`,
+          description: `💭 Ask Parfait questions`,
           options: [
             {
               name: "question",
