@@ -169,17 +169,23 @@ client.once("ready", async () => {
     });
   });
   function keepAlive() {
+    const startTime = Date.now();
+
     // Replace 'YOUR_BOT_ENDPOINT' with the actual endpoint of your bot
-    fetch("https://t6fsg9-3000.csb.app", {
+    fetch("https://f3th74-3000.csb.app", {
       method: "GET",
     })
       .then((response) => {
+        const endTime = Date.now();
+        const latency = endTime - startTime;
+
         console.info(
           `\x1b[0m`,
           `\x1b[33m 〢`,
           `\x1b[33m ${moment(Date.now()).format("LT")}`,
           `\x1b[31m Parfait`,
           `\x1b[32m PINGED`,
+          `\x1b[33m ${latency}ms`,
         );
       })
       .catch((error) => {
