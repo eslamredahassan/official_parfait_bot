@@ -2,6 +2,7 @@ const { Client, Intents } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
 Client.setMaxListeners(0);
+const wait = require("util").promisify(setTimeout);
 
 const config = require("./src/config");
 const antiCrash = require("./src/utils/antiCrash");
@@ -22,10 +23,6 @@ const client = new Client({
 });
 
 client.on("ready", async () => {
-  // Read all files in the directory
-  server(client, config);
-  antiCrash(client, config);
-  deployCommands(client, config);
   // The directory where your select menu files are stored
   const databseDirectory = path.join(__dirname, "src/database");
   // Read all files in the directory
@@ -70,6 +67,7 @@ client.on("ready", async () => {
       }
     });
   });
+  wait (1 * 60 * 1000);
   // The directory where your select menu files are stored
   const eventsDirectory = path.join(__dirname, "src/events");
   // Read all files in the directory
