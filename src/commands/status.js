@@ -1,11 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const packageJSON = require("../../package");
 const fs = require("fs");
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
 
 const os = require("os");
 const moment = require("moment");
 const mongoose = require("mongoose");
-const wait = require("util").promisify(setTimeout);
 
 const settings = JSON.parse(fs.readFileSync("./src/assest/settings.json"));
 const color = settings.colors;
@@ -80,37 +81,65 @@ module.exports = async (client, config) => {
         // in Giga `(usedMemory / Math.pow(1024, 3)).toFixed(2)`
 
         const discordJSVersion = packageJSON.dependencies["discord.js"];
+        const pingLatency = Date.now() - interaction.createdTimestamp;
+        const apiLatency = Math.round(client.ws.ping);
+
+        // Get the list of installed packages and calculate the total count
+        const { stdout: packageList } = await exec(
+          "npm list --depth 0 --parseable",
+        );
+        // Get the total number of npm packages installed
+        const totalPackages = packageList.trim().split("\n").length;
+        // Fetch the commands for the guild
+        const commands = await interaction.guild.commands.fetch();
+        const totalSlashCommands = commands.size;
 
         await interaction.editReply({
           embeds: [
             new MessageEmbed()
               .setColor(color.gray)
-              .setTitle(`${emojis.alert} ${client.user.username} status`)
-              .setDescription("")
-              //.setThumbnail(Logo)
+              .setDescription(
+                `### ${emojis.parfaitIcon} ${client.user.username} status`,
+              )
               .setImage(banners.aboutBanner)
               .addFields(
                 {
                   name: `${emojis.nodejs} Discord.js version`,
-                  value: `${emojis.threadMark} ${discordJSVersion}`,
+                  value: `${emojis.threadMark} \`\`${discordJSVersion}\`\``,
                   inline: true,
                 },
                 {
                   name: `${emojis.cpu} Used memory`,
-                  value: `${emojis.threadMark} ${getpercentage}`,
+                  value: `${emojis.threadMark} \`\`${getpercentage}\`\``,
                   inline: true,
                 },
                 {
                   name: `${emojis.db} Database`,
-                  value: `${emojis.threadMark} ${info.status}`,
+                  value: `${emojis.threadMark} \`\`${info.status}\`\``,
                   inline: true,
                 },
                 {
-                  name: `${emojis.time} Uptime`,
-                  value: `${emojis.threadMark} Online for ${uptimeString(
-                    Math.floor(process.uptime()),
-                  )}`,
+                  name: `${emojis.package} Total Packages`,
+                  value: `${emojis.threadMark} \`\`${totalPackages}\`\` Packages`,
+                  inline: true,
+                },
+
+                {
+                  name: `${emojis.slash} Total Slash Commands`,
+                  value: `${emojis.threadMark} \`\`${totalSlashCommands}\`\` Commands`,
                   inline: false,
+                },
+                {
+                  name: `${emojis.uptime} Uptime`,
+                  value: `${emojis.threadMark} Since <t:${
+                    Math.floor(Date.now() / 1000) - Math.floor(process.uptime())
+                  }:R>`,
+                  inline: true,
+                },
+                {
+                  name: `${emojis.ping} Latency`,
+                  value: `${emojis.threadMark} Parfait \`\`${pingLatency}\`\` ms ${emojis.pinkDot} API \`\`${apiLatency}\`\` ms`,
+                  inline: true,
                 },
               )
               .setFooter({
@@ -121,6 +150,7 @@ module.exports = async (client, config) => {
           ephemeral: true,
           components: [],
         });
+
         console.log(
           `\x1b[0m`,
           `\x1b[33m 〢`,
