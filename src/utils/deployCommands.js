@@ -68,6 +68,24 @@ module.exports = async (client, config) => {
           type: 3,
         },
         {
+          name: "server",
+          description: `🧪︱ 📑 List of server that Parfait joined`,
+          type: "CHAT_INPUT",
+        },
+        {
+          name: "leave",
+          description: `🧪︱ ➖ Leave a server that Parfait joined before`,
+          type: "CHAT_INPUT",
+          options: [
+            {
+              name: "server_id",
+              description: "Choose server you want to leave",
+              type: 3, // CHANNEL
+              required: true,
+            },
+          ],
+        },
+        {
           name: "echo",
           description: ` 📢 Parfait will send your message`,
           options: [
