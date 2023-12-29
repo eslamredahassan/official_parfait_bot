@@ -4,60 +4,85 @@ const config = require("../config");
 const moment = require("moment");
 
 const Counter = require("../../src/database/models/counter");
-//// Application Sun ///
 
 module.exports = async (client, config) => {
   const counter = await Counter.findOne();
   const counterValue = counter ? counter.count : 0;
 
   const guild = client.guilds.cache.get(config.guildID);
-  const squad = guild.roles.cache.get(config.SquadSUN);
-  const tryout = guild.roles.cache.get(config.waitRole);
 
-  let membersCount = client.guilds.cache
-    .map((guild) => guild.memberCount)
-    .reduce((a, b) => a + b, 0);
-  const statusArray = [
-    {
-      type: "PLAYING",
-      content: `with ${membersCount} Smashers`,
-      status: "idle",
-    },
-    {
-      type: "WATCHING",
-      content: `${counterValue} Applications`,
-      status: "idle",
-    },
-    {
-      type: "WATCHING",
-      content: `${tryout.members.size} Tryouts`,
-      status: "idle",
-    },
-    {
-      type: "PLAYING",
-      content: `With ${squad.members.size} Sun Members`,
-      status: "idle",
-    },
-  ];
-  async function pickPresence() {
-    const option = Math.floor(Math.random() * statusArray.length);
+  // Fetch the squad role
+  const squadRole = guild.roles.cache.get(config.SquadSUN);
+  const tryoutRole = guild.roles.cache.get(config.waitRole);
+  const SunTest = guild.roles.cache.get(config.SunTest);
+
+  const membersCount = guild.memberCount;
+
+  // Function to dynamically update the status
+  async function updatePresence() {
     try {
+      // Fetch all guild members
+      await guild.members.fetch();
+
+      // Filter members based on the squad role
+      const squadMembers = guild.members.cache.filter((member) =>
+        member.roles.cache.has(squadRole.id),
+      );
+
+      // Set the presence directly based on conditions
       await client.user.setPresence({
         activities: [
           {
-            name: statusArray[option].content,
-            type: statusArray[option].type,
-            url: statusArray[option].url,
+            name: `with ${membersCount} Smashers`,
+            type: "PLAYING",
           },
+          {
+            name: `${counterValue} Applications`,
+            type: "WATCHING",
+          },
+          {
+            name: `With ${squadMembers.size} Sun Members`,
+            type: "PLAYING",
+          },
+          // Add tryout status only if there are tryouts
+          ...(tryoutRole.members.size > 0
+            ? [
+                {
+                  name: `${tryoutRole.members.size} Tryouts`,
+                  type: "WATCHING",
+                },
+              ]
+            : []),
+          // Add SunTest status only if there are players in test
+          ...(SunTest.members.size > 0
+            ? [
+                {
+                  name: `${SunTest.members.size} Players in test`,
+                  type: "WATCHING",
+                },
+              ]
+            : []),
         ],
-        status: statusArray[option].status,
+        status: "idle",
       });
     } catch (error) {
-      console.error(error);
+      console.error(
+        `\x1b[0m`,
+        `\x1b[33m 〢`,
+        `\x1b[33m ${moment(Date.now()).format("LT")}`,
+        `\x1b[31m Error in Activity`,
+        `\x1b[31m ${error.message}`,
+      );
     }
   }
-  setInterval(pickPresence, 30 * 1000);
-  console.log(
+
+  // Initial presence update
+  await updatePresence();
+
+  // Set interval for presence updates
+  setInterval(updatePresence, 30 * 1000);
+
+  console.info(
     `\x1b[0m`,
     `\x1b[33m 〢`,
     `\x1b[33m ${moment(Date.now()).format("LT")}`,
