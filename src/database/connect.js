@@ -50,7 +50,7 @@ const databaseConnection = async () => {
           `\x1b[31m Max retries reached`,
           `\x1b[32m Unable to connect to the database`,
         );
-        process.exit(1); // You can handle this differently based on your application's needs
+        //process.exit(1); // You can handle this differently based on your application's needs
       }
     }
   };
