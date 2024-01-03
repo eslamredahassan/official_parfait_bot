@@ -80,7 +80,7 @@ module.exports = async (client, config) => {
   await updatePresence();
 
   // Set interval for presence updates
-  setInterval(updatePresence, 30 * 1000);
+  setInterval(updatePresence, 60 * 1000);
 
   console.info(
     `\x1b[0m`,
