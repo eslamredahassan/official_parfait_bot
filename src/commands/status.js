@@ -139,7 +139,7 @@ module.exports = async (client, config) => {
                 {
                   name: `${emojis.ping} Latency`,
                   value: `${emojis.threadMark} Parfait \`\`${pingLatency}\`\` ms ${emojis.pinkDot} API \`\`${apiLatency}\`\` ms`,
-                  inline: true,
+                  inline: false,
                 },
               )
               .setFooter({
