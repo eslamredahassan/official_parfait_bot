@@ -17,7 +17,6 @@ module.exports = (client) => {
       `\x1b[33m ${moment(Date.now()).format("LT")}`,
       `\x1b[31m Error:`,
       `\x1b[35m ${reason}`,
-      `\x1b[35m ${p}`,
     );
   });
   process.on("uncaughtException", (error, origin) => {

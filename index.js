@@ -10,7 +10,7 @@ const deployCommands = require("./src/utils/deployCommands");
 const server = require("./src/utils/server");
 const logo = require("./src/assest/logo");
 const moment = require("moment");
-
+const database = require("./src/database/connect");
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -23,6 +23,9 @@ const client = new Client({
 });
 
 client.on("ready", async () => {
+  antiCrash(client, config);
+  deployCommands(client, config);
+  await database(client, config);
   // The directory where your select menu files are stored
   const databseDirectory = path.join(__dirname, "src/database");
   // Read all files in the directory
@@ -45,6 +48,7 @@ client.on("ready", async () => {
       }
     });
   });
+  await wait(2 * 60 * 1000);
   // The directory where your select menu files are stored
   const selectMenuDirectory = path.join(__dirname, "src/select menu");
   // Read all files in the directory

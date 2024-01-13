@@ -6,13 +6,14 @@ const databaseConnection = async () => {
   let retryCount = 0;
   const maxRetries = 5;
   const retryInterval = 20 * 1000; // 20 seconds in milliseconds
+  //mongoose.set("debug", true);
 
   const connection = async () => {
     try {
       await mongoose.connect(config.database, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 60000,
+        serverSelectionTimeoutMS: 120000,
         dbName: "OfficialParfait",
       });
 
