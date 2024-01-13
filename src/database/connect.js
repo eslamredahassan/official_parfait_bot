@@ -12,7 +12,7 @@ const databaseConnection = async () => {
       await mongoose.connect(config.database, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        serverSelectionTimeoutMS:  1* 60 * 1000,
+        serverSelectionTimeoutMS: 60000,
         dbName: "OfficialParfait",
       });
 
